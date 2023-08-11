@@ -4,14 +4,14 @@ import PackageDescription
 let package = Package(
     name: "SwiftStringObfuscator",
     platforms: [
-        .macOS(.v10_13),
+        .macOS(.v10_15),
     ],
     products: [
         .executable(name: "swift_string_obfuscator", targets: ["swift_string_obfuscator"]),
     ],
     dependencies: [
-        .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", .exact("0.50300.0")),
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "0.3.0"),
+        .package(url: "https://github.com/apple/swift-syntax", from: "508.0.0"),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0"),
     ],
     targets: [
         .target(
@@ -23,7 +23,10 @@ let package = Package(
         ),
         .target(
             name: "SwiftStringObfuscatorCore",
-            dependencies: ["SwiftSyntax"]
+            dependencies: [
+                .product(name: "SwiftSyntax", package: "swift-syntax"),
+                .product(name: "SwiftSyntaxParser", package: "swift-syntax"),
+            ]
         ),
         .testTarget(
             name: "SwiftStringObfuscatorTests",

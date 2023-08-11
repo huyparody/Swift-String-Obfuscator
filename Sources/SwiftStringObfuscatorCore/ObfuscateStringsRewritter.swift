@@ -69,7 +69,7 @@ class ObfuscateStringsRewritter: SyntaxRewriter {
         return super.visit(newCall)
     }
 
-    override func visit(_ token: TokenSyntax) -> Syntax {
+    override func visit(_ token: TokenSyntax) -> TokenSyntax {
         let withoutSpaces = token.leadingTrivia.filter { if case .spaces = $0 { return false }; return true }
         guard withoutSpaces.count > 1 else { return super.visit(token) }
         let lastNewLine = withoutSpaces.last
